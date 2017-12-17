@@ -39,8 +39,12 @@ let createPlotlyComponent = (plotlyInstance) => class Plotly extends React.Compo
 
   componentDidMount() {
     let {data, layout, config} = this.props;
+    const _this = this;
     plotlyInstance.newPlot(this.container, data, cloneDeep(layout), config); //We clone the layout as plotly mutates it.
     this.attachListeners();
+    window.onresize = function() {
+      _this.resize()
+    };
   }
 
   componentDidUpdate(prevProps) {
